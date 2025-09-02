@@ -1,57 +1,155 @@
-# ACME Components Monorepo
+# NPM Client Package Template (TypeScript, Multi-Framework)
 
-A minimal template to build and publish component packages for React, Vue 3, and Next.js.
+Production-ready template to build and publish npm packages for client-side frameworks: React, Next.js, Vue 3, and SolidJS. Strict TypeScript, robust type definitions, CI/CD via GitHub Actions + Changesets, and examples per framework.
 
-## Structure
+Quick links:
 
-- `packages/react-ui`: React component library
-- `packages/vue-ui`: Vue 3 component library (Vite library mode)
-- `packages/next-ui`: Next.js-ready React components (with `use client` where needed)
+- Docs: see `docs/` or start with `docs/overview.md`
+- CI/CD: `.github/workflows/`
+- Packages: `packages/`
+
+## Features
+
+- TypeScript-first with strict settings and declaration output
+- Framework targets: React, Next.js, Vue 3 (Vite library), SolidJS (Vite library)
+- Bundling: tsup (React/Next) and Vite (Vue/Solid) ⇒ ESM + CJS + types
+- Linting/Formatting: ESLint (+ React/Vue/Solid), Prettier, EditorConfig
+- Testing: Vitest + jsdom + Testing Library variants
+- Versioning/Publishing: Changesets + GitHub Actions release workflow
+- Monorepo: pnpm workspaces + Turborepo caching
+- Scaffold script to generate new packages (WIP command in docs)
+
+## Monorepo Structure
+
+- `packages/react-ui` — React component library (tsup)
+- `packages/next-ui` — Next.js-ready React components (tsup + `use client`)
+- `packages/vue-ui` — Vue 3 library (Vite library mode + `vue-tsc` for d.ts)
+- `packages/solid-ui` — SolidJS library (Vite library mode + d.ts)
 
 ## Getting Started
 
-1. Install dependencies
+1. Install
 
 ```bash
 pnpm install
 ```
 
-2. Build all packages
-
-```bash
-pnpm build
-```
-
-3. Develop with watch
+2. Develop
 
 ```bash
 pnpm dev
 ```
 
-## Releasing (Changesets)
+3. Build all packages
 
-1. Create a changeset
+```bash
+pnpm build
+```
+
+4. Test
+
+```bash
+pnpm test
+```
+
+5. Lint & Format
+
+```bash
+pnpm lint
+pnpm format
+```
+
+## Publish & Release
+
+1. Record changes
 
 ```bash
 pnpm changeset
 ```
 
-2. Bump versions
+2. Version packages (creates a PR via CI or locally bumps versions)
 
 ```bash
 pnpm version-packages
 ```
 
-3. Publish to npm (requires `NPM_TOKEN` configured in CI or local `~/.npmrc`)
+3. Publish (CI uses `NPM_TOKEN`; local publish uses your `~/.npmrc`)
 
 ```bash
 pnpm release
 ```
 
-GitHub Actions workflow (`.github/workflows/release.yml`) will automatically open a version PR or publish on pushes to `main` if `NPM_TOKEN` is set as a repo secret.
+CI will open a Version PR or publish on pushes to `main` when `NPM_TOKEN` is set. See `docs/publishing.md` for details.
+
+## Quality gates
+
+- CI runs lint, typecheck, build, tests, and size checks before releasing
+- Pre-commit hook auto-formats and lints staged files (`husky` + `lint-staged`)
+- Bundles are minimized: peers are externalized, ESM/CJS outputs, tree-shaking, and `size-limit` enforces thresholds
+
+## Framework Quick Starts
+
+- React usage:
+
+```tsx
+import { Button } from '@rte/react-ui';
+
+export function App() {
+  return <Button variant="primary">Click</Button>;
+}
+```
+
+- Next.js (client component):
+
+```tsx
+'use client';
+import { ClientButton } from '@rte/next-ui';
+
+export default function Page() {
+  return <ClientButton>Next</ClientButton>;
+}
+```
+
+- Vue 3:
+
+```ts
+import { createApp } from 'vue';
+import { VButton } from '@rte/vue-ui';
+createApp({}).component('VButton', VButton).mount('#app');
+```
+
+- SolidJS:
+
+```tsx
+import { SButton } from '@rte/solid-ui';
+
+export default function App() {
+  return <SButton>Solid</SButton>;
+}
+```
+
+## Creating a New Package
+
+Use the scaffold script to copy from a template package and rename.
+
+```bash
+pnpm scaffold -- --template react --name awesome-ui --scope @your-scope
+```
+
+See `docs/overview.md#scaffolding` for options and manual steps.
+
+## Docs
+
+See the `docs/` folder for:
+
+- `overview.md` — concepts, repo workflow, scaffolding
+- `react.md`, `next.md`, `vue.md`, `solid.md` — framework guides
+- `publishing.md` — npm publishing/changesets/CI
+- `ci.md` — CI/CD overview and required secrets
+- `troubleshooting.md` — common issues
 
 ## Notes
 
-- React/Next packages are built with `tsup` generating ESM and CJS + types.
-- Vue package uses Vite library mode and `vue-tsc` to emit types.
-- Update the package names (currently `@acme/*`) to your own scope.
+- Update package names from the `@rte/*` scope to your own
+- All packages are strict TypeScript and emit `.d.ts`
+- Favor functional, typed APIs; throw typed errors sparingly and document them
