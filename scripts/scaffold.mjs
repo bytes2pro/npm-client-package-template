@@ -30,7 +30,9 @@ function detectScopeFromRepo() {
         return pkg.name.split('/')[0];
       }
     }
-  } catch {}
+  } catch {
+    /* ignore: fall back to default scope */
+  }
   return '@rte';
 }
 
@@ -95,5 +97,3 @@ console.log(`  1) Edit packages/${name}/package.json (description, keywords, rep
 console.log(`  2) Implement your code in packages/${name}/src`);
 console.log(`  3) Build: pnpm --filter ${scope}/${name} build`);
 console.log(`  4) Add a changeset: pnpm changeset`);
-
-

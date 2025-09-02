@@ -37,7 +37,9 @@ function detectCurrentScope() {
       if (typeof pkg.name === 'string' && pkg.name.startsWith('@') && pkg.name.includes('/')) {
         return pkg.name.split('/')[0];
       }
-    } catch {}
+    } catch {
+      /* ignore: skip unreadable package.json */
+    }
   }
   return '@rte';
 }
@@ -104,5 +106,3 @@ for (const file of filesToUpdate) {
 // 3) Update scaffold default: it auto-detects scope after this change
 console.log('\nDone. New packages you scaffold will default to this scope.');
 console.log('Tip: create an npm automation token for this scope and set NPM_TOKEN in CI.');
-
-
