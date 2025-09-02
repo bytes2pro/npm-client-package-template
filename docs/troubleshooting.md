@@ -15,3 +15,16 @@ Only mark files that use browser APIs with `'use client'`. Keep server-safe file
 ## Vue or Solid bundling issues
 
 Verify `external` configuration excludes framework runtime from bundles and types are emitted.
+
+## E404 when publishing scoped packages
+
+If CI logs show `E404 Not Found - PUT https://registry.npmjs.org/@scope%2fpackage - Not found`:
+
+- Ensure your npm scope is correct and consistent across packages and docs:
+
+```bash
+pnpm set-scope -- --scope @your-scope
+```
+
+- Verify `NPM_TOKEN` is set in repo secrets and has publish rights to `@your-scope`.
+- For public scoped packages, ensure `publishConfig.access: "public"` in each `package.json`.

@@ -37,3 +37,26 @@ pnpm release
 
 - Set the package `name` to your scope, e.g. `@your-scope/awesome-ui`
 - `publishConfig.access: public` for public scoped packages
+- Ensure `NPM_TOKEN` has publish rights to the chosen scope/org
+
+### Configure scope across the repo
+
+Run once to update all package names and docs from the default `@rte/*` to your scope:
+
+```bash
+pnpm set-scope -- --scope @your-scope
+```
+
+New packages you scaffold will default to the detected scope. You can override per command:
+
+```bash
+pnpm scaffold -- --template react --name awesome-ui --scope @another-scope
+```
+
+### CI npm auth
+
+The release workflow injects `NPM_TOKEN`. If needed, you can write an npmrc explicitly before publish:
+
+```bash
+echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+```

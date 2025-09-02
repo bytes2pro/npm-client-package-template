@@ -16,7 +16,25 @@ const params = Object.fromEntries(
 
 const template = params.template || 'react';
 const name = params.name;
-const scope = params.scope || '@rte';
+
+function detectScopeFromRepo() {
+  try {
+    const pkgsDir = path.join(process.cwd(), 'packages');
+    const entries = fs.readdirSync(pkgsDir, { withFileTypes: true });
+    for (const entry of entries) {
+      if (!entry.isDirectory()) continue;
+      const pkgPath = path.join(pkgsDir, entry.name, 'package.json');
+      if (!fs.existsSync(pkgPath)) continue;
+      const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+      if (pkg.name && typeof pkg.name === 'string' && pkg.name.startsWith('@') && pkg.name.includes('/')) {
+        return pkg.name.split('/')[0];
+      }
+    }
+  } catch {}
+  return '@rte';
+}
+
+const scope = params.scope || detectScopeFromRepo();
 
 if (!name) {
   console.error('Missing --name <package-name>');

@@ -9,6 +9,7 @@ Two workflows:
 
 - Ensure `NPM_TOKEN` is added as a repository secret for publishing
 - Node 20 and pnpm 9 are used by default
+- If publishing scoped packages, confirm `NPM_TOKEN` has rights to that scope/org
 
 ## Caching
 

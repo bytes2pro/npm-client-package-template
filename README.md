@@ -40,7 +40,15 @@ pnpm install
 pnpm dev
 ```
 
-3. Build all packages
+3. Set your npm scope (optional)
+
+```bash
+pnpm set-scope -- --scope @your-scope
+```
+
+New packages you scaffold will default to this scope. You can also override per scaffold with `--scope`.
+
+4. Build all packages
 
 ```bash
 pnpm build
@@ -133,7 +141,8 @@ export default function App() {
 Use the scaffold script to copy from a template package and rename.
 
 ```bash
-pnpm scaffold -- --template react --name awesome-ui --scope @your-scope
+pnpm scaffold -- --template react --name awesome-ui            # uses detected scope
+pnpm scaffold -- --template react --name awesome-ui --scope @another-scope
 ```
 
 See `docs/overview.md#scaffolding` for options and manual steps.
@@ -150,6 +159,6 @@ See the `docs/` folder for:
 
 ## Notes
 
-- Update package names from the `@rte/*` scope to your own
+- Set your npm scope once with `pnpm set-scope -- --scope @your-scope` (updates packages and docs)
 - All packages are strict TypeScript and emit `.d.ts`
 - Favor functional, typed APIs; throw typed errors sparingly and document them

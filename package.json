@@ -1,6 +1,7 @@
 {
-  "name": "rte-components-monorepo",
+  "name": "rte-client-side-template",
   "private": true,
+  "description": "Template for publishing your client-side npm packages",
   "version": "0.0.0",
   "workspaces": [
     "packages/*"
@@ -19,6 +20,7 @@
     "version-packages": "changeset version",
     "changeset": "changeset",
     "scaffold": "node scripts/scaffold.mjs",
+    "set-scope": "node scripts/set-scope.mjs",
     "prepare": "husky"
   },
   "devDependencies": {

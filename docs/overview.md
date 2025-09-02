@@ -18,6 +18,7 @@ This template helps you create and publish client-side npm packages with TypeScr
 Generate a new package from an existing template:
 
 ```bash
+pnpm scaffold -- --template react --name awesome-ui        # uses detected scope
 pnpm scaffold -- --template react --name awesome-ui --scope @your-scope
 ```
 
@@ -25,7 +26,17 @@ Options:
 
 - `--template` one of `react`, `next`, `vue`, `solid`
 - `--name` the folder and package name (e.g. `awesome-ui`)
-- `--scope` npm scope (default `@rte`)
+- `--scope` npm scope (defaults to the scope detected from existing packages)
+
+### Set or change npm scope for the repo
+
+Run once after cloning to update all package names and docs:
+
+```bash
+pnpm set-scope -- --scope @your-scope
+```
+
+After this, new scaffolds default to `@your-scope` automatically.
 
 ## Development Loop
 
