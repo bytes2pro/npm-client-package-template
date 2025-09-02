@@ -28,3 +28,5 @@ pnpm set-scope -- --scope @your-scope
 
 - Verify `NPM_TOKEN` is set in repo secrets and has publish rights to `@your-scope`.
 - For public scoped packages, ensure `publishConfig.access: "public"` in each `package.json`.
+
+> Please raise an issue if you think we missed anything important in this template.
