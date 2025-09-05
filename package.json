@@ -21,6 +21,7 @@
     "changeset": "changeset",
     "scaffold": "node scripts/scaffold.mjs",
     "set-scope": "node scripts/set-scope.mjs",
+    "set-umbrella": "node scripts/set-umbrella-name.mjs",
     "prepare": "husky"
   },
   "devDependencies": {

@@ -11,7 +11,7 @@ const params = Object.fromEntries(
     .map((kv) => {
       const [k, ...rest] = kv.split(' ');
       return [k, rest.join(' ').trim()];
-    })
+    }),
 );
 
 const root = process.cwd();
@@ -67,6 +67,8 @@ console.log(`Updating scope: ${currentScope} -> ${newScope}`);
 if (fs.existsSync(packagesDir)) {
   for (const entry of fs.readdirSync(packagesDir, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue;
+    // Keep umbrella package scoped to @rte by default; users will rename it via set-umbrella-name
+    if (entry.name === 'umbrella') continue;
     const pkgJsonPath = path.join(packagesDir, entry.name, 'package.json');
     if (!fs.existsSync(pkgJsonPath)) continue;
     const pkg = readJson(pkgJsonPath);
@@ -83,7 +85,8 @@ if (fs.existsSync(packagesDir)) {
 const filesToUpdate = [];
 function walk(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (entry.name === 'node_modules' || entry.name === 'dist' || entry.name.startsWith('.git')) continue;
+    if (entry.name === 'node_modules' || entry.name === 'dist' || entry.name.startsWith('.git'))
+      continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) walk(full);
     else if (/\.(md|ts|tsx|vue|js|mjs|tsconfig|json)$/i.test(entry.name)) filesToUpdate.push(full);

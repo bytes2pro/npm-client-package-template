@@ -10,7 +10,7 @@
 
 ```svelte
 <script>
-  import { SButton } from '@acme/svelte-ui';
+  import { SButton } from '@rte/svelte-ui';
 </script>
 
 <SButton variant="primary">Svelte</SButton>

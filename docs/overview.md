@@ -24,7 +24,7 @@ pnpm scaffold -- --template react --name awesome-ui --scope @your-scope
 
 Options:
 
-- `--template` one of `react`, `next`, `vue`, `solid`
+- `--template` one of `react`, `next`, `vue`, `solid`, `preact`, `lit`, `nuxt`, `svelte`, `umbrella`
 - `--name` the folder and package name (e.g. `awesome-ui`)
 - `--scope` npm scope (defaults to the scope detected from existing packages)
 
@@ -37,6 +37,19 @@ pnpm set-scope -- --scope @your-scope
 ```
 
 After this, new scaffolds default to `@your-scope` automatically.
+
+### Umbrella package (subpath exports)
+
+This repo includes an umbrella package at `packages/umbrella` that re-exports each framework build so consumers can import from subpaths like `@scope/pkg/react` or `@scope/pkg/nuxt`.
+
+Steps (template usage):
+
+- Build frameworks: `pnpm build`
+- Assemble umbrella: `pnpm --filter @rte/your-package build`
+- Rename umbrella only: `pnpm set-umbrella -- --scope @your-scope --name z-devtools`
+- Publish via Changesets
+
+Note: `pnpm set-scope` intentionally does not rename the umbrella package so the template keeps its `@rte/*` default. Use `set-umbrella` to rename just the umbrella package for publishing.
 
 ## Development Loop
 

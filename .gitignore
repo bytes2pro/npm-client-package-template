@@ -52,3 +52,4 @@ yarn-error.log*
 Thumbs.db
 .vscode/
 .idea/
+packages/next-ui/dist

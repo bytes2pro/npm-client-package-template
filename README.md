@@ -150,6 +150,21 @@ pnpm scaffold -- --template react --name awesome-ui --scope @another-scope
 
 See `docs/overview.md#scaffolding` for options and manual steps.
 
+## Multi-framework umbrella package (subpath exports)
+
+This template includes an umbrella package that re-exports each framework build so consumers can import:
+
+- `import { ZDev } from '@your-scope/your-package/react'`
+- `import { ZDev } from '@your-scope/your-package/next'`
+- `import { ZDev } from '@your-scope/your-package/nuxt'`
+
+How-to:
+
+- Build framework packages first: `pnpm build`
+- Build umbrella: `pnpm --filter @rte/your-package build` (copies framework dists into `packages/umbrella/dist`)
+- Rename `@rte/your-package` in `packages/umbrella/package.json` to your final name (e.g., `@your-scope/your-package-name`)
+- Publish: `pnpm release`
+
 ## Docs
 
 See the `docs/` folder for:
