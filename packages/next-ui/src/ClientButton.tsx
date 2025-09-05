@@ -1,22 +1,31 @@
 'use client';
+import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
+import { twMerge } from 'tailwind-merge';
 
-export type ClientButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+const buttonVariants = cva(
+  'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3 py-2',
+  {
+    variants: {
+      variant: {
+        primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        link: 'text-primary underline-offset-4 hover:underline',
+      },
+    },
+    defaultVariants: { variant: 'primary' },
+  },
+);
 
-export function ClientButton({ children, style, ...rest }: ClientButtonProps) {
+export type ClientButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants>;
+
+export function ClientButton({ children, className, variant, ...rest }: ClientButtonProps) {
+  const classes = twMerge(buttonVariants({ variant }), className);
   return (
-    <button
-      style={{
-        borderRadius: 6,
-        padding: '8px 12px',
-        fontSize: 14,
-        cursor: 'pointer',
-        background: '#2563EB',
-        color: 'white',
-        ...style,
-      }}
-      {...rest}
-    >
+    <button className={classes} {...rest}>
       {children}
     </button>
   );

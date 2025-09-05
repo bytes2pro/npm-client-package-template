@@ -1,31 +1,29 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-const props = withDefaults(defineProps<{ variant?: 'primary' | 'secondary' }>(), {
-  variant: 'primary',
-});
+const props = withDefaults(
+  defineProps<{
+    variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link';
+    class?: string;
+  }>(),
+  { variant: 'primary' },
+);
 
-const base = {
-  borderRadius: '6px',
-  padding: '8px 12px',
-  fontSize: '14px',
-  cursor: 'pointer',
-  border: '1px solid transparent',
-} as const;
+const BASE =
+  'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3 py-2';
+const variants: Record<NonNullable<typeof props.variant>, string> = {
+  primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+  secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+  outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+  ghost: 'hover:bg-accent hover:text-accent-foreground',
+  link: 'text-primary underline-offset-4 hover:underline',
+};
 
-const theme = {
-  primary: { background: '#111827', color: 'white' },
-  secondary: { background: '#F3F4F6', color: '#111827', borderColor: '#D1D5DB' },
-} as const;
-
-const computedStyle = computed(() => ({
-  ...base,
-  ...theme[props.variant],
-}));
+const classes = computed(() => `${BASE} ${variants[props.variant]} ${props.class ?? ''}`.trim());
 </script>
 
 <template>
-  <button :style="computedStyle"><slot /></button>
+  <button :class="classes"><slot /></button>
   <!-- Wrap in <ClientOnly> in Nuxt if the child uses browser-only APIs -->
   <!-- <ClientOnly><button :style="computedStyle"><slot /></button></ClientOnly> -->
 </template>

@@ -1,23 +1,30 @@
+import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
+import { twMerge } from 'tailwind-merge';
 
-export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'primary' | 'secondary';
-};
+const buttonVariants = cva(
+  'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 px-3 py-2',
+  {
+    variants: {
+      variant: {
+        primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        link: 'text-primary underline-offset-4 hover:underline',
+      },
+    },
+    defaultVariants: { variant: 'primary' },
+  },
+);
 
-export function Button({ variant = 'primary', style, children, ...rest }: ButtonProps) {
-  const base: React.CSSProperties = {
-    borderRadius: 6,
-    padding: '8px 12px',
-    fontSize: 14,
-    cursor: 'pointer',
-    border: '1px solid transparent',
-  };
-  const theme: Record<string, React.CSSProperties> = {
-    primary: { background: '#111827', color: 'white' },
-    secondary: { background: '#F3F4F6', color: '#111827', borderColor: '#D1D5DB' },
-  };
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants>;
+
+export function Button({ variant, className, children, ...rest }: ButtonProps) {
+  const classes = twMerge(buttonVariants({ variant }), className);
   return (
-    <button style={{ ...base, ...theme[variant], ...style }} {...rest}>
+    <button className={classes} {...rest}>
       {children}
     </button>
   );
