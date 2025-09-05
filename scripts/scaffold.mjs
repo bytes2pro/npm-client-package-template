@@ -11,7 +11,7 @@ const params = Object.fromEntries(
     .map((kv) => {
       const [k, ...rest] = kv.split(' ');
       return [k, rest.join(' ').trim()];
-    })
+    }),
 );
 
 const template = params.template || 'react';
@@ -26,7 +26,12 @@ function detectScopeFromRepo() {
       const pkgPath = path.join(pkgsDir, entry.name, 'package.json');
       if (!fs.existsSync(pkgPath)) continue;
       const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-      if (pkg.name && typeof pkg.name === 'string' && pkg.name.startsWith('@') && pkg.name.includes('/')) {
+      if (
+        pkg.name &&
+        typeof pkg.name === 'string' &&
+        pkg.name.startsWith('@') &&
+        pkg.name.includes('/')
+      ) {
         return pkg.name.split('/')[0];
       }
     }
@@ -49,10 +54,16 @@ const templateMap = {
   next: 'next-ui',
   vue: 'vue-ui',
   solid: 'solid-ui',
+  nuxt: 'nuxt-ui',
+  lit: 'lit-ui',
+  preact: 'preact-ui',
+  svelte: 'svelte-ui',
 };
 
 if (!templateMap[template]) {
-  console.error(`Unknown template: ${template}. Use one of: ${Object.keys(templateMap).join(', ')}`);
+  console.error(
+    `Unknown template: ${template}. Use one of: ${Object.keys(templateMap).join(', ')}`,
+  );
   process.exit(1);
 }
 

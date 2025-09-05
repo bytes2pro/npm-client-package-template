@@ -31,6 +31,9 @@
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
     "@testing-library/vue": "^8.1.0",
+    "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "svelte": "^4.2.0",
+    "svelte-check": "^4.0.0",
     "@types/node": "^20.11.0",
     "@typescript-eslint/eslint-plugin": "^8.15.0",
     "@typescript-eslint/parser": "^8.15.0",
@@ -102,6 +105,11 @@
     {
       "name": "nuxt-ui esm",
       "path": "packages/nuxt-ui/dist/index.esm.js",
+      "limit": "15 KB"
+    },
+    {
+      "name": "svelte-ui esm",
+      "path": "packages/svelte-ui/dist/index.esm.js",
       "limit": "15 KB"
     }
   ],
