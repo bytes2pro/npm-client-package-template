@@ -25,6 +25,9 @@ Quick links:
 - `packages/next-ui` — Next.js-ready React components (tsup + `use client`)
 - `packages/vue-ui` — Vue 3 library (Vite library mode + `vue-tsc` for d.ts)
 - `packages/solid-ui` — SolidJS library (Vite library mode + d.ts)
+- `packages/preact-ui` - Preact library (Vite library mode + d.ts)
+- `packages/nuxt-ui` - Nuxt.js-ready Vue components (Vite library mode)
+- `packages/lit-ui` - LitJS Library (Vite library mode + d.ts)
 
 ## Getting Started
 
