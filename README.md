@@ -178,7 +178,7 @@ See the `docs/` folder for:
 ## Notes
 
 - Set your npm scope once with `pnpm set-scope -- --scope @your-scope` (updates packages and docs)
-
-**Credits**: [npm-client-package-template](https://github.com/bytes2pro/npm-client-package-template) for the base template.
 - All packages are strict TypeScript and emit `.d.ts`
 - Favor functional, typed APIs; throw typed errors sparingly and document them
+
+> **Credits**: [npm-client-package-template](https://github.com/bytes2pro/npm-client-package-template) for the base template.
