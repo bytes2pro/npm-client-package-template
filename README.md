@@ -181,4 +181,7 @@ See the `docs/` folder for:
 - All packages are strict TypeScript and emit `.d.ts`
 - Favor functional, typed APIs; throw typed errors sparingly and document them
 
-> **Credits**: [npm-client-package-template](https://github.com/bytes2pro/npm-client-package-template) for the base template.
+## Credits
+
+[npm-client-package-template](https://github.com/bytes2pro/npm-client-package-template) by [RUiNtheExtinct](https://github.com/RUiNtheExtinct) for the base template.
+Checkout our org. [Bytes2Pro](https://github.com/bytes2pro) for more cool (hopefully) stuff.
