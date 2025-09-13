@@ -184,4 +184,5 @@ See the `docs/` folder for:
 ## Credits
 
 [npm-client-package-template](https://github.com/bytes2pro/npm-client-package-template) by [RUiNtheExtinct](https://github.com/RUiNtheExtinct) for the base template.
+
 Checkout our org. [Bytes2Pro](https://github.com/bytes2pro) for more cool (hopefully) stuff.
