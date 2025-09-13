@@ -68,7 +68,8 @@
     }
   },
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build && pnpm build:umbrella",
+    "build:packages": "turbo run build",
     "clean": "turbo run clean",
     "dev": "turbo run dev --parallel",
     "lint": "eslint . --ext .ts,.tsx,.vue,.js --max-warnings 0",

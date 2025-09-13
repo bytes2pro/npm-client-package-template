@@ -84,7 +84,7 @@ pnpm changeset
 pnpm version-packages
 ```
 
-3. Publish (CI uses `NPM_TOKEN`; local publish uses your `~/.npmrc`)
+3. Publish a single umbrella package (CI uses `NPM_TOKEN`; local publish uses your `~/.npmrc`)
 
 ```bash
 pnpm release
@@ -160,10 +160,10 @@ This template includes an umbrella package that re-exports each framework build 
 
 How-to:
 
-- Build framework packages first: `pnpm build`
-- Build umbrella: `pnpm --filter @rte/your-package build` (copies framework dists into `packages/umbrella/dist`)
-- Rename `@rte/your-package` in `packages/umbrella/package.json` to your final name (e.g., `@your-scope/your-package-name`)
-- Publish: `pnpm release`
+- Build frameworks first: `pnpm build:packages`
+- Assemble umbrella dist at root: `pnpm build:umbrella`
+- Rename root package name in `package.json` (e.g., `@your-scope/z-devtools`)
+- Publish once from the root: `pnpm release`
 
 ## Docs
 
